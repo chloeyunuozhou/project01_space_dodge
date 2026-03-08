@@ -272,36 +272,40 @@
   <div class="container">
     <header>
       <h1>SPACE DODGE V2</h1>
-      <p class="tagline">Salamander-style shooter · Dodge, collect power-ups, defeat the UFO.</p>
+      <p class="tagline">Salamander-style shooter · Dodge comets, fight mini bees, defeat five bosses and win.</p>
     </header>
 
     <section>
       <h2>About the Game</h2>
       <p>
         Space Dodge V2 is inspired by Konami's classic <strong>Salamander</strong> (1986, aka Life Force)—a vertical scrolling shooter. 
-        Pilot your ship at the bottom, dodge comets, and collect power-up capsules: <strong>Speed</strong> (faster movement), 
-        <strong>Spread</strong> (3-way shot), and <strong>Shield</strong> (temporary invincibility). 
-        At 90 seconds a UFO boss appears—shoot it 10 times to win. Background music plays when you start; use the Music button to mute.
+        Pilot your ship at the bottom of the screen. <strong>Dodge falling comets</strong> (yellow = 1 life, purple = 2 lives, blue = 3 lives) and <strong>enemy bullets</strong> from small bees. 
+        When no boss is on screen, <strong>mini bees</strong> appear—shoot them to clear the way. Collect <strong>heart bubbles</strong> (every 15 seconds) to gain extra lives; you start with 3 lives and can hold up to 9.
+        Collect power-up capsules: <strong>Speed</strong> (faster movement), <strong>Spread</strong> (3-way shot), <strong>Shield</strong> (temporary invincibility), <strong>Laser</strong> (continuous beam), <strong>Shotgun</strong> (fan of pellets), and <strong>Missile</strong> (homing shots for 8 seconds). 
+        <strong>Five bosses</strong> appear over time: Big Bee, Shark, Pufferfish, Robot, and Gorilla. Defeat the final boss (Gorilla) to win. Background music plays when you start; use the Music button to mute.
       </p>
     </section>
 
     <section>
       <h2>How to Play</h2>
       <ul>
-        <li>Move your spacecraft left and right to avoid the falling stars.</li>
-        <li>Survive as long as possible—your time is your score.</li>
-        <li>If a star hits your craft, the game is over.</li>
+        <li><strong>Move</strong> your spacecraft left and right with the arrow keys.</li>
+        <li><strong>Shoot</strong> with SPACE to destroy mini bees and damage bosses.</li>
+        <li><strong>Dodge</strong> comets and enemy bullets—each hit costs lives (or 3 for blue comets).</li>
+        <li><strong>Collect</strong> heart bubbles to gain lives (up to 9) and capsules for weapons and power-ups.</li>
+        <li><strong>Defeat</strong> all five bosses in order; beating the Gorilla wins the game.</li>
       </ul>
       <h3 style="font-family: Orbitron; font-size: 1rem; color: var(--muted); margin: 1.25rem 0 0.5rem;">Controls</h3>
       <div class="controls">
         <div class="control-item"><kbd>←</kbd> Move left</div>
         <div class="control-item"><kbd>→</kbd> Move right</div>
+        <div class="control-item"><kbd>SPACE</kbd> Shoot</div>
       </div>
     </section>
 
     <section class="game-section">
       <h2>Space Dodge V2 — Salamander Style</h2>
-      <p>Inspired by Konami's Salamander (1986). ← → move, SPACE shoot. Collect capsules: <strong>Speed</strong>, <strong>Spread</strong> (3-way), <strong>Shield</strong>. Defeat the UFO at 90s!</p>
+      <p><kbd>←</kbd> <kbd>→</kbd> move, <kbd>SPACE</kbd> shoot. Collect hearts (lives) and capsules: <strong>Speed</strong>, <strong>Spread</strong>, <strong>Shield</strong>, <strong>Laser</strong>, <strong>Shotgun</strong>, <strong>Missile</strong>. Defeat all five bosses (Big Bee, Shark, Pufferfish, Robot, Gorilla) to win!</p>
       <div class="game-ui">
         <span class="game-score" id="gameScore">Time: 0s</span>
         <button type="button" class="btn" id="gameMuteBtn">🔊 Music On</button>
@@ -311,7 +315,7 @@
         <canvas id="gameCanvas" width="800" height="600"></canvas>
         <div class="game-overlay" id="gameOverlay">
           <h3>SPACE DODGE V2</h3>
-          <p>Salamander-style · ← → move, SPACE shoot. Collect power-ups, beat the UFO!</p>
+          <p>← → move, SPACE shoot. Dodge comets, collect hearts and power-ups, defeat all five bosses to win!</p>
           <button type="button" class="btn" id="gameStartBtn2">Start Game</button>
         </div>
         <div class="game-overlay hidden" id="gameOverOverlay">
@@ -320,8 +324,8 @@
           <button type="button" class="btn" id="gameRestartBtn">Play Again</button>
         </div>
         <div class="game-overlay hidden" id="gameCongratsOverlay">
-          <h3 style="font-size: 2.5rem; color: #00d4ff;">CONGRATS!!!</h3>
-          <p>You defeated the UFO!</p>
+          <h3 style="font-size: 1.5rem; color: #00d4ff;">CONGRATS!!!</h3>
+          <p style="font-size: 0.95rem;">You defeated all five bosses!</p>
           <button type="button" class="btn" id="gameCongratsBtn">Play Again</button>
         </div>
       </div>
@@ -329,20 +333,11 @@
 
     <section>
       <h2>How to Run the Game</h2>
-      <p>You need Python 3 and Pygame installed. From the project folder in a terminal:</p>
-      <pre><code># Install pygame if you haven't already
-pip install pygame
-
-# Run the game
-python main.py</code></pre>
-      <p style="margin-top: 1rem;">
-        Make sure the <code>resources</code> folder is in the same directory as <code>main.py</code>, 
-        with <code>bg.jpeg</code>, <code>crafts.jpg</code>, and <code>star.jpg</code> inside it.
-      </p>
+      <p>Open <code>index.html</code> in a modern web browser (Chrome, Firefox, Safari, or Edge). No install required—just double-click the file or drag it into your browser window. Use a keyboard for the best experience.</p>
     </section>
 
     <footer>
-      <p>Space Dodge — First class project · Python + Pygame</p>
+      <p>Space Dodge V2 — Salamander-style shooter · Play in your browser</p>
     </footer>
   </div>
 
@@ -368,21 +363,84 @@ python main.py</code></pre>
       const UFO_WIDTH = 60;
       const UFO_HEIGHT = 30;
       const UFO_VEL = 2;
+      const SHARK_WIDTH = 90;
+      const SHARK_HEIGHT = 40;
+      const SHARK_VEL = 2.5;
+      const BUBBLE_SIZE = 28;
+      const BUBBLE_VEL = 2;
       const UFO_SHOOT_INTERVAL = 1500;
-      const UFO_SPAWN_TIME = 90;
+      const UFO_SPAWN_TIME = 45;
+      const SHARK_SPAWN_TIME = 80;
+      const SHARK_SHOOT_INTERVAL = 1150;
+      const PUFFERFISH_SPAWN_TIME = 135;
+      const PUFFERFISH_SHOOT_INTERVAL = 1400;
+      const PUFFERFISH_WIDTH = 70;
+      const PUFFERFISH_HEIGHT = 70;
+      const PUFFERFISH_VEL = 2;
+      const HEART_BUBBLE_TIME = 0;
+      const HEART_BUBBLE_INTERVAL = 15000;
+      const LIVES_CAP_EXTEND_TIME = 115;
+      const PLAYER_LIVES_MAX = 3;
+      const PLAYER_LIVES_MAX_EXTENDED = 9;
       const CAPSULE_SIZE = 18;
       const CAPSULE_VEL = 2.5;
       const POWERUP_SPAWN_INTERVAL = 12000;
+      const WEAPON_CAPSULE_INTERVAL = 8000;
       const SHIELD_DURATION_MS = 5000;
+      const BEE_WIDTH = 24;
+      const BEE_HEIGHT = 20;
+      const BEE_SPAWN_INTERVAL = 1500;
+      const BEE_VEL_Y = 3.2;
+      const BEE_SHOOT_INTERVAL = 2200;
+      const BEE_BULLET_W = 6;
+      const BEE_BULLET_H = 10;
+      const BEE_BULLET_VEL = 3.5;
+      const LASER_FIRE_INTERVAL_MS = 90;
+      const MISSILE_HOMING_SPEED = 6;
+      const ROBOT_SPAWN_TIME = 180;
+      const ROBOT_SHOOT_INTERVAL = 950;
+      const ROBOT_WIDTH = 75;
+      const ROBOT_HEIGHT = 55;
+      const ROBOT_VEL = 2.2;
+      const GORILLA_SPAWN_TIME = 160;
+      const GORILLA_SHOOT_INTERVAL = 750;
+      const GORILLA_WIDTH = 85;
+      const GORILLA_HEIGHT = 65;
+      const GORILLA_VEL = 2;
 
-      let player = { x: 200, y: HEIGHT - PLAYER_HEIGHT, w: PLAYER_WIDTH, h: PLAYER_HEIGHT, speedUp: false, spreadShot: false, shieldUntil: 0 };
+      let player = { x: 200, y: HEIGHT - PLAYER_HEIGHT, w: PLAYER_WIDTH, h: PLAYER_HEIGHT, speedUp: false, spreadShot: false, weapon: 'normal', shieldUntil: 0 };
       let powerUps = [];
       let lastPowerUpSpawn = 0;
+      let lastWeaponCapsuleSpawn = 0;
       let stars = [];
       let arrows = [];
       let ufo = null;
       let ufoDefeated = false;
       let ufoLastShot = 0;
+      let shark = null;
+      let sharkDefeated = false;
+      let sharkLastShot = 0;
+      let pufferfish = null;
+      let pufferfishDefeated = false;
+      let pufferfishLastShot = 0;
+      let robot = null;
+      let robotDefeated = false;
+      let robotLastShot = 0;
+      let gorilla = null;
+      let gorillaDefeated = false;
+      let gorillaLastShot = 0;
+      let enemyBullets = [];
+      let playerLives = PLAYER_LIVES_MAX;
+      let heartBubbles = [];
+      let lastHeartBubbleTime = 0;
+      let congrats1Until = 0;
+      let congrats2Until = 0;
+      let congrats3Until = 0;
+      let congrats4Until = 0;
+      let congrats5Until = 0;
+      let smallBees = [];
+      let lastBeeSpawn = 0;
+      let lastLaserTime = 0;
       let startTime = 0;
       let elapsed = 0;
       let starAddIncrement = 2000;
@@ -401,7 +459,9 @@ python main.py</code></pre>
       const finalTimeEl = document.getElementById('finalTime');
 
       function drawStarsBg() {
-        const g = ctx.createRadialGradient(0, 0, 0, WIDTH, HEIGHT, WIDTH * 0.8);
+        const cx = WIDTH / 2, cy = HEIGHT / 2;
+        const r = Math.max(WIDTH, HEIGHT) * 0.65;
+        const g = ctx.createRadialGradient(cx, cy, 1, cx, cy, r);
         g.addColorStop(0, '#0d1220');
         g.addColorStop(0.5, '#0a0e17');
         g.addColorStop(1, '#050810');
@@ -428,46 +488,229 @@ python main.py</code></pre>
       }
 
       function drawStar(s) {
-        ctx.fillStyle = '#ffeb99';
-        ctx.strokeStyle = '#ffb347';
+        if (s.blue) {
+          ctx.fillStyle = '#4488ff';
+          ctx.strokeStyle = '#88bbff';
+        } else if (s.purple) {
+          ctx.fillStyle = '#aa44ff';
+          ctx.strokeStyle = '#ff88ff';
+        } else {
+          ctx.fillStyle = '#ffeb99';
+          ctx.strokeStyle = '#ffb347';
+        }
         ctx.lineWidth = 1;
         ctx.fillRect(s.x, s.y, s.w, s.h);
         ctx.strokeRect(s.x, s.y, s.w, s.h);
       }
 
-      function drawUFO() {
-        if (!ufo) return;
-        const u = ufo;
-        ctx.fillStyle = '#4a0080';
-        ctx.strokeStyle = '#00ff88';
+      function drawHeartBubble(b) {
+        ctx.strokeStyle = 'rgba(255,200,255,0.9)';
+        ctx.fillStyle = 'rgba(255,230,255,0.3)';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.ellipse(u.x + u.w / 2, u.y + u.h / 2, u.w / 2, u.h / 2, 0, 0, Math.PI * 2);
+        ctx.arc(b.x + b.w/2, b.y + b.h/2, b.w/2 - 2, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
+        ctx.fillStyle = '#ff69b4';
+        ctx.font = '18px sans-serif';
+        ctx.fillText('♥', b.x + 4, b.y + b.h - 6);
+      }
+
+      function drawSmallBee(b) {
+        var cx = b.x + b.w / 2, cy = b.y + b.h / 2;
+        ctx.fillStyle = '#e6c200';
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, b.w / 2 - 2, b.h / 2 - 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        for (var i = 0; i < 3; i++) {
+          var bx = b.x + 4 + i * 8;
+          ctx.fillStyle = '#1a1a1a';
+          ctx.fillRect(bx, b.y + 2, 3, b.h - 4);
+        }
+        ctx.strokeStyle = 'rgba(200,220,255,0.7)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(cx - 6, cy - 4, 5, 4, -0.3, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx + 6, cy - 4, 5, 4, 0.3, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      function drawEnemyBullet(eb) {
+        ctx.fillStyle = '#ffcc00';
+        ctx.strokeStyle = '#996600';
+        ctx.fillRect(eb.x, eb.y, eb.w, eb.h);
+        ctx.strokeRect(eb.x, eb.y, eb.w, eb.h);
+      }
+
+      function drawUFO() {
+        if (!ufo) return;
+        var u = ufo, cx = u.x + u.w/2, cy = u.y + u.h/2;
+        ctx.fillStyle = '#e6b800';
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, u.w/2 - 2, u.h/2 - 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        for (var i = 0; i < 5; i++) {
+          ctx.fillStyle = '#1a1a1a';
+          ctx.fillRect(u.x + 6 + i * 12, u.y + 4, 5, u.h - 8);
+        }
+        ctx.strokeStyle = 'rgba(220,240,255,0.8)';
+        ctx.beginPath();
+        ctx.ellipse(cx - 18, cy - 6, 14, 10, -0.2, 0, Math.PI * 2);
+        ctx.ellipse(cx + 18, cy - 6, 14, 10, 0.2, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.arc(cx - 8, cy - 4, 4, 0, Math.PI * 2);
+        ctx.arc(cx + 8, cy - 4, 4, 0, Math.PI * 2);
+        ctx.fill();
         ctx.fillStyle = '#00ff88';
-        ctx.font = '12px Orbitron';
-        ctx.fillText('HP: ' + u.hp, u.x + 8, u.y + u.h / 2 + 4);
+        ctx.font = '11px Orbitron';
+        ctx.fillText('HP: ' + u.hp, u.x + 6, u.y + u.h/2 + 4);
+      }
+      function drawShark() {
+        if (!shark) return;
+        var s = shark, cx = s.x + s.w/2, cy = s.y + s.h/2;
+        ctx.fillStyle = '#3a5a7a';
+        ctx.strokeStyle = '#6a9acc';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s.x + s.w * 0.9, cy);
+        ctx.lineTo(s.x + s.w - 4, cy - 6);
+        ctx.lineTo(s.x + s.w, cy);
+        ctx.lineTo(s.x + s.w - 4, cy + 6);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(cx - 5, cy, s.w * 0.4, s.h * 0.45, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(s.x + 18, s.y + 4);
+        ctx.lineTo(s.x, cy - 2);
+        ctx.lineTo(s.x + 18, s.y + s.h - 4);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#ff2222';
+        ctx.beginPath();
+        ctx.arc(s.x + 8, cy, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#00ff88';
+        ctx.font = '11px Orbitron';
+        ctx.fillText('HP: ' + s.hp, s.x + 2, s.y + s.h/2 + 4);
+      }
+      function drawPufferfish() {
+        if (!pufferfish) return;
+        var p = pufferfish, cx = p.x + p.w/2, cy = p.y + p.h/2, r = Math.min(p.w, p.h)/2 - 4;
+        ctx.fillStyle = '#4a7a9a';
+        ctx.strokeStyle = '#7ab8dd';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        for (var i = 0; i < 12; i++) {
+          var a = (i/12) * Math.PI * 2;
+          ctx.beginPath();
+          ctx.moveTo(cx + Math.cos(a)*r, cy + Math.sin(a)*r);
+          ctx.lineTo(cx + Math.cos(a)*(r+8), cy + Math.sin(a)*(r+8));
+          ctx.stroke();
+        }
+        ctx.fillStyle = '#ff2222';
+        ctx.beginPath();
+        ctx.arc(cx - 6, cy - 5, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#00ff88';
+        ctx.font = '11px Orbitron';
+        ctx.fillText('HP: ' + p.hp, p.x + 4, p.y + p.h/2 + 4);
+      }
+      function drawRobot() {
+        if (!robot) return;
+        var r = robot, cx = r.x + r.w/2, cy = r.y + r.h/2;
+        ctx.fillStyle = '#505060';
+        ctx.strokeStyle = '#808090';
+        ctx.lineWidth = 2;
+        ctx.fillRect(r.x, r.y + 8, r.w, r.h - 16);
+        ctx.strokeRect(r.x, r.y + 8, r.w, r.h - 16);
+        ctx.fillStyle = '#606070';
+        ctx.fillRect(r.x + 8, r.y, r.w - 16, 14);
+        ctx.fillStyle = '#ff4444';
+        ctx.beginPath();
+        ctx.arc(cx - 12, cy - 8, 5, 0, Math.PI * 2);
+        ctx.arc(cx + 12, cy - 8, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#00ff88';
+        ctx.font = '11px Orbitron';
+        ctx.fillText('HP: ' + r.hp, r.x + 4, r.y + r.h/2 + 4);
+      }
+      function drawGorilla() {
+        if (!gorilla) return;
+        var g = gorilla, cx = g.x + g.w/2, cy = g.y + g.h/2;
+        ctx.fillStyle = '#3d3d3d';
+        ctx.strokeStyle = '#2a2a2a';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy + 5, g.w/2 - 4, g.h/2 - 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#2d2d2d';
+        ctx.beginPath();
+        ctx.ellipse(cx - 22, cy - 12, 12, 14, 0.2, 0, Math.PI * 2);
+        ctx.ellipse(cx + 22, cy - 12, 12, 14, -0.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.arc(cx - 10, cy - 8, 5, 0, Math.PI * 2);
+        ctx.arc(cx + 10, cy - 8, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#00ff88';
+        ctx.font = '11px Orbitron';
+        ctx.fillText('HP: ' + g.hp, g.x + 4, g.y + g.h/2 + 4);
       }
 
       function drawArrow(a) {
-        ctx.fillStyle = '#00d4ff';
-        ctx.strokeStyle = '#fff';
-        ctx.lineWidth = 1;
-        ctx.fillRect(a.x, a.y, a.w, a.h);
-        ctx.strokeRect(a.x, a.y, a.w, a.h);
+        var type = a.weaponType || 'normal';
+        if (type === 'laser') {
+          ctx.fillStyle = '#ff4444';
+          ctx.strokeStyle = '#ffaa00';
+          ctx.lineWidth = 1;
+          ctx.fillRect(a.x, a.y, a.w, a.h);
+          ctx.strokeRect(a.x, a.y, a.w, a.h);
+        } else if (type === 'missile') {
+          ctx.fillStyle = '#888';
+          ctx.strokeStyle = '#ccc';
+          ctx.fillRect(a.x, a.y, a.w, a.h);
+          ctx.strokeRect(a.x, a.y, a.w, a.h);
+        } else {
+          ctx.fillStyle = '#00d4ff';
+          ctx.strokeStyle = '#fff';
+          ctx.lineWidth = 1;
+          ctx.fillRect(a.x, a.y, a.w, a.h);
+          ctx.strokeRect(a.x, a.y, a.w, a.h);
+        }
       }
 
       function drawCapsule(c) {
-        var colors = { speed: '#00ff88', spread: '#ffaa00', shield: '#00d4ff' };
+        var colors = { speed: '#00ff88', spread: '#ffaa00', shield: '#00d4ff', laser: '#dd2222', shotgun: '#22aa44', missile: '#c0c0c0' };
         ctx.fillStyle = colors[c.type] || '#fff';
         ctx.strokeStyle = '#fff';
         ctx.lineWidth = 1.5;
         ctx.fillRect(c.x, c.y, c.w, c.h);
         ctx.strokeRect(c.x, c.y, c.w, c.h);
         ctx.fillStyle = '#000';
-        ctx.font = 'bold 12px Orbitron';
-        ctx.fillText(c.type === 'speed' ? 'S' : c.type === 'spread' ? 'P' : 'H', c.x + 4, c.y + 13);
+        ctx.font = 'bold 11px Orbitron';
+        var label = { speed: 'S', spread: 'P', shield: 'H', laser: 'L', shotgun: 'G', missile: 'M' }[c.type] || '?';
+        ctx.fillText(label, c.x + 5, c.y + 13);
       }
 
       function drawPlayer() {
@@ -492,17 +735,71 @@ python main.py</code></pre>
 
       function draw() {
         drawStarsBg();
-        ctx.fillStyle = '#fff';
-        ctx.font = '20px Orbitron, sans-serif';
-        ctx.fillText('Time: ' + Math.round(elapsed) + 's', 12, 28);
-        if (player.speedUp) ctx.fillText('SPEED', 12, 52);
-        if (player.spreadShot) ctx.fillText('SPREAD', 12, 74);
-        if (player.shieldUntil > performance.now()) ctx.fillText('SHIELD', 12, 96);
         if (ufo) drawUFO();
+        if (shark) drawShark();
+        if (pufferfish) drawPufferfish();
+        if (robot) drawRobot();
+        if (gorilla) drawGorilla();
+        smallBees.forEach(drawSmallBee);
+        enemyBullets.forEach(drawEnemyBullet);
         powerUps.forEach(drawCapsule);
+        heartBubbles.forEach(drawHeartBubble);
         arrows.forEach(drawArrow);
         drawPlayer();
         stars.forEach(drawStar);
+        ctx.save();
+        ctx.fillStyle = 'rgba(8, 12, 20, 0.96)';
+        ctx.strokeStyle = 'rgba(0, 212, 255, 0.5)';
+        ctx.lineWidth = 2;
+        var hudW = 168;
+        var hudH = 140;
+        ctx.fillRect(2, 2, hudW, hudH);
+        ctx.strokeRect(2, 2, hudW, hudH);
+        ctx.fillStyle = '#fff';
+        ctx.font = '18px Orbitron, sans-serif';
+        ctx.fillText('Time: ' + Math.round(elapsed) + 's', 12, 24);
+        ctx.fillText('Lives: ' + playerLives, 12, 46);
+        var lineY = 68;
+        if (player.speedUp) { ctx.fillText('SPEED', 12, lineY); lineY += 20; }
+        if (player.weapon && player.weapon !== 'normal') { ctx.fillText(player.weapon.toUpperCase(), 12, lineY); lineY += 20; }
+        if (player.shieldUntil > performance.now()) ctx.fillText('SHIELD', 12, lineY);
+        ctx.restore();
+        var now = performance.now();
+        if (congrats1Until > now) {
+          ctx.fillStyle = 'rgba(0,212,255,0.95)';
+          ctx.font = '28px Orbitron';
+          ctx.textAlign = 'center';
+          ctx.fillText('CONGRATS! Boss 1 defeated!', WIDTH/2, HEIGHT/2 - 20);
+          ctx.textAlign = 'left';
+        }
+        if (congrats2Until > now) {
+          ctx.fillStyle = 'rgba(0,212,255,0.95)';
+          ctx.font = '28px Orbitron';
+          ctx.textAlign = 'center';
+          ctx.fillText('CONGRATS! Shark defeated!', WIDTH/2, HEIGHT/2 - 20);
+          ctx.textAlign = 'left';
+        }
+        if (congrats3Until > now) {
+          ctx.fillStyle = 'rgba(0,212,255,0.95)';
+          ctx.font = '28px Orbitron';
+          ctx.textAlign = 'center';
+          ctx.fillText('CONGRATS! Pufferfish defeated!', WIDTH/2, HEIGHT/2 - 20);
+          ctx.textAlign = 'left';
+        }
+        if (congrats4Until > now) {
+          ctx.fillStyle = 'rgba(0,212,255,0.95)';
+          ctx.font = '28px Orbitron';
+          ctx.textAlign = 'center';
+          ctx.fillText('CONGRATS! Robot defeated!', WIDTH/2, HEIGHT/2 - 20);
+          ctx.textAlign = 'left';
+        }
+        if (congrats5Until > now) {
+          ctx.fillStyle = 'rgba(0,212,255,0.95)';
+          ctx.font = '28px Orbitron';
+          ctx.textAlign = 'center';
+          ctx.fillText('CONGRATS! Gorilla defeated!', WIDTH/2, HEIGHT/2 - 20);
+          ctx.textAlign = 'left';
+        }
       }
 
       function spawnStars() {
@@ -510,7 +807,8 @@ python main.py</code></pre>
           x: Math.random() * (WIDTH - STAR_WIDTH),
           y: -STAR_HEIGHT,
           w: STAR_WIDTH,
-          h: STAR_HEIGHT
+          h: STAR_HEIGHT,
+          purple: false
         });
         starAddIncrement = Math.max(900, starAddIncrement - 30);
         starCount = 0;
@@ -545,15 +843,26 @@ python main.py</code></pre>
         if (starCount > starAddIncrement) spawnStars();
 
         if (timestamp - lastPowerUpSpawn > POWERUP_SPAWN_INTERVAL) {
-          var types = ['speed', 'spread', 'shield'];
+          var types = ['speed', 'spread', 'shield', 'laser', 'shotgun', 'missile'];
           powerUps.push({
             x: 80 + Math.random() * (WIDTH - 160),
             y: -CAPSULE_SIZE,
             w: CAPSULE_SIZE,
             h: CAPSULE_SIZE,
-            type: types[Math.floor(Math.random() * 3)]
+            type: types[Math.floor(Math.random() * types.length)]
           });
           lastPowerUpSpawn = timestamp;
+        }
+        if (timestamp - lastWeaponCapsuleSpawn > WEAPON_CAPSULE_INTERVAL) {
+          var weaponTypes = ['laser', 'laser', 'laser', 'shotgun', 'shotgun', 'missile'];
+          powerUps.push({
+            x: 80 + Math.random() * (WIDTH - 160),
+            y: -CAPSULE_SIZE,
+            w: CAPSULE_SIZE,
+            h: CAPSULE_SIZE,
+            type: weaponTypes[Math.floor(Math.random() * weaponTypes.length)]
+          });
+          lastWeaponCapsuleSpawn = timestamp;
         }
 
         var vel = PLAYER_VEL * (player.speedUp ? 1.6 : 1);
@@ -561,24 +870,121 @@ python main.py</code></pre>
         if (keysState.right && player.x + vel + player.w <= WIDTH) player.x += vel;
 
         if (elapsed >= UFO_SPAWN_TIME && !ufo && !ufoDefeated) {
-          ufo = { x: WIDTH / 2 - UFO_WIDTH / 2, y: 50, w: UFO_WIDTH, h: UFO_HEIGHT, hp: 10, dir: 1 };
+          ufo = { x: WIDTH/2 - UFO_WIDTH/2, y: 50, w: UFO_WIDTH, h: UFO_HEIGHT, hp: 50, dir: 1 };
           ufoLastShot = timestamp;
         }
-
         if (ufo) {
           ufo.x += UFO_VEL * ufo.dir;
           if (ufo.x <= 0 || ufo.x + ufo.w >= WIDTH) ufo.dir *= -1;
           if (timestamp - ufoLastShot > UFO_SHOOT_INTERVAL) {
-            stars.push({
-              x: ufo.x + ufo.w / 2 - STAR_WIDTH / 2,
-              y: ufo.y + ufo.h,
-              w: STAR_WIDTH,
-              h: STAR_HEIGHT
-            });
+            stars.push({ x: ufo.x + ufo.w/2 - STAR_WIDTH/2, y: ufo.y + ufo.h, w: STAR_WIDTH, h: STAR_HEIGHT, purple: false });
             ufoLastShot = timestamp;
           }
         }
+        if (elapsed >= SHARK_SPAWN_TIME && !shark && !sharkDefeated) {
+          shark = { x: WIDTH/2 - SHARK_WIDTH/2, y: 45, w: SHARK_WIDTH, h: SHARK_HEIGHT, hp: 75, dir: 1 };
+          sharkLastShot = timestamp;
+        }
+        if (shark) {
+          shark.x += SHARK_VEL * shark.dir;
+          if (shark.x <= 0 || shark.x + shark.w >= WIDTH) shark.dir *= -1;
+          if (timestamp - sharkLastShot > SHARK_SHOOT_INTERVAL) {
+            stars.push({ x: shark.x + shark.w/2 - STAR_WIDTH/2, y: shark.y + shark.h, w: STAR_WIDTH, h: STAR_HEIGHT, purple: true });
+            sharkLastShot = timestamp;
+          }
+        }
+        if (elapsed >= PUFFERFISH_SPAWN_TIME && !pufferfish && !pufferfishDefeated) {
+          pufferfish = { x: WIDTH/2 - PUFFERFISH_WIDTH/2, y: 40, w: PUFFERFISH_WIDTH, h: PUFFERFISH_HEIGHT, hp: 100, dir: 1 };
+          pufferfishLastShot = timestamp;
+        }
+        if (pufferfish) {
+          pufferfish.x += PUFFERFISH_VEL * pufferfish.dir;
+          if (pufferfish.x <= 0 || pufferfish.x + pufferfish.w >= WIDTH) pufferfish.dir *= -1;
+          if (timestamp - pufferfishLastShot > PUFFERFISH_SHOOT_INTERVAL) {
+            stars.push({ x: pufferfish.x + pufferfish.w/2 - STAR_WIDTH/2, y: pufferfish.y + pufferfish.h, w: STAR_WIDTH, h: STAR_HEIGHT, purple: false, blue: true });
+            pufferfishLastShot = timestamp;
+          }
+        }
+        if (elapsed >= ROBOT_SPAWN_TIME && !robot && !robotDefeated) {
+          robot = { x: WIDTH/2 - ROBOT_WIDTH/2, y: 42, w: ROBOT_WIDTH, h: ROBOT_HEIGHT, hp: 350, dir: 1 };
+          robotLastShot = timestamp;
+        }
+        if (robot) {
+          robot.x += ROBOT_VEL * robot.dir;
+          if (robot.x <= 0 || robot.x + robot.w >= WIDTH) robot.dir *= -1;
+          if ((timestamp - robotLastShot) >= ROBOT_SHOOT_INTERVAL) {
+            stars.push({ x: robot.x + robot.w/2 - STAR_WIDTH/2, y: robot.y + robot.h, w: STAR_WIDTH, h: STAR_HEIGHT, purple: false, blue: true });
+            robotLastShot = timestamp;
+          }
+        }
+        if (elapsed >= GORILLA_SPAWN_TIME && !gorilla && !gorillaDefeated) {
+          gorilla = { x: WIDTH/2 - GORILLA_WIDTH/2, y: 40, w: GORILLA_WIDTH, h: GORILLA_HEIGHT, hp: 500, dir: 1 };
+          gorillaLastShot = timestamp;
+        }
+        if (gorilla) {
+          gorilla.x += GORILLA_VEL * gorilla.dir;
+          if (gorilla.x <= 0 || gorilla.x + gorilla.w >= WIDTH) gorilla.dir *= -1;
+          if ((timestamp - gorillaLastShot) >= GORILLA_SHOOT_INTERVAL) {
+            stars.push({ x: gorilla.x + gorilla.w/2 - STAR_WIDTH/2, y: gorilla.y + gorilla.h, w: STAR_WIDTH, h: STAR_HEIGHT, purple: false, blue: true });
+            gorillaLastShot = timestamp;
+          }
+        }
+        if (!ufo && !shark && !pufferfish && !robot && !gorilla && elapsed > 2 && (timestamp - lastBeeSpawn) >= BEE_SPAWN_INTERVAL) {
+          for (var b = 0; b < 2; b++) {
+            smallBees.push({
+              x: Math.random() * (WIDTH - BEE_WIDTH),
+              y: -BEE_HEIGHT,
+              w: BEE_WIDTH,
+              h: BEE_HEIGHT,
+              wobble: Math.random() * 0.02 - 0.01,
+              lastShot: 0,
+              hp: 1
+            });
+          }
+          lastBeeSpawn = timestamp;
+        }
+        for (var sb = smallBees.length - 1; sb >= 0; sb--) {
+          var bee = smallBees[sb];
+          bee.y += BEE_VEL_Y;
+          bee.x += (bee.wobble || 0) * 60;
+          if (bee.x < 0 || bee.x + bee.w > WIDTH) bee.wobble *= -1;
+          if (bee.y > HEIGHT) { smallBees.splice(sb, 1); continue; }
+          if ((timestamp - (bee.lastShot || 0)) >= BEE_SHOOT_INTERVAL) {
+            bee.lastShot = timestamp;
+            enemyBullets.push({
+              x: bee.x + bee.w/2 - BEE_BULLET_W/2,
+              y: bee.y + bee.h,
+              w: BEE_BULLET_W,
+              h: BEE_BULLET_H
+            });
+          }
+        }
+        for (var eb = enemyBullets.length - 1; eb >= 0; eb--) {
+          var bullet = enemyBullets[eb];
+          bullet.y += BEE_BULLET_VEL;
+          if (bullet.y > HEIGHT) enemyBullets.splice(eb, 1);
+          else if (collides(player, bullet)) {
+            enemyBullets.splice(eb, 1);
+            if (player.shieldUntil <= performance.now()) {
+              playerLives--;
+              if (playerLives <= 0) hit = true;
+            }
+          }
+        }
+        if (elapsed >= HEART_BUBBLE_TIME && (lastHeartBubbleTime === 0 || (timestamp - lastHeartBubbleTime) >= HEART_BUBBLE_INTERVAL)) {
+          heartBubbles.push({
+            x: 60 + Math.random() * (WIDTH - 120),
+            y: -BUBBLE_SIZE,
+            w: BUBBLE_SIZE,
+            h: BUBBLE_SIZE
+          });
+          lastHeartBubbleTime = timestamp;
+        }
 
+        if (player.weapon === 'missile' && player.missileAcquiredAt && (timestamp - player.missileAcquiredAt) > 8000) {
+          player.weapon = 'normal';
+          player.missileAcquiredAt = 0;
+        }
         for (var pu = powerUps.length - 1; pu >= 0; pu--) {
           var c = powerUps[pu];
           c.y += CAPSULE_VEL;
@@ -586,34 +992,124 @@ python main.py</code></pre>
           else if (collides(player, c)) {
             powerUps.splice(pu, 1);
             if (c.type === 'speed') player.speedUp = true;
-            if (c.type === 'spread') player.spreadShot = true;
+            if (c.type === 'spread') { player.spreadShot = true; player.weapon = 'spread'; }
             if (c.type === 'shield') player.shieldUntil = performance.now() + SHIELD_DURATION_MS;
+            if (c.type === 'laser') player.weapon = 'laser';
+            if (c.type === 'shotgun') player.weapon = 'shotgun';
+            if (c.type === 'missile') { player.weapon = 'missile'; player.missileAcquiredAt = timestamp; }
+          }
+        }
+        for (var hb = heartBubbles.length - 1; hb >= 0; hb--) {
+          var b = heartBubbles[hb];
+          b.y += BUBBLE_VEL;
+          if (b.y > HEIGHT) heartBubbles.splice(hb, 1);
+          else if (collides(player, b)) {
+            heartBubbles.splice(hb, 1);
+            var maxLives = PLAYER_LIVES_MAX_EXTENDED;
+            playerLives = Math.min(maxLives, playerLives + 1);
           }
         }
 
-        if (elapsed >= UFO_SPAWN_TIME && keysState.space) {
-            var cx = player.x + player.w / 2 - ARROW_WIDTH / 2;
-            var cy = player.y - ARROW_HEIGHT;
-            if (player.spreadShot) {
-              arrows.push({ x: cx - 22, y: cy, w: ARROW_WIDTH, h: ARROW_HEIGHT });
-              arrows.push({ x: cx, y: cy, w: ARROW_WIDTH, h: ARROW_HEIGHT });
-              arrows.push({ x: cx + 22, y: cy, w: ARROW_WIDTH, h: ARROW_HEIGHT });
-            } else {
-              arrows.push({ x: cx, y: cy, w: ARROW_WIDTH, h: ARROW_HEIGHT });
+        var cx = player.x + player.w / 2;
+        var cy = player.y;
+        var w = player.weapon;
+        if (w === 'laser' && keysState.space) {
+          if ((timestamp - lastLaserTime) >= LASER_FIRE_INTERVAL_MS) {
+            arrows.push({ x: cx - 3, y: cy - 70, w: 6, h: 70, weaponType: 'laser' });
+            lastLaserTime = timestamp;
+          }
+        } else if (keysState.space) {
+          if (w === 'missile') {
+            if (player.missileAcquiredAt && (timestamp - player.missileAcquiredAt) <= 8000) {
+              arrows.push({ x: cx - 18, y: cy - 24, w: 10, h: 24, weaponType: 'missile', vx: 0, vy: -8 });
+              arrows.push({ x: cx + 8, y: cy - 24, w: 10, h: 24, weaponType: 'missile', vx: 0, vy: -8 });
             }
-            keysState.space = false;
+          } else if (w === 'shotgun') {
+            var angles = [-0.35, -0.17, 0, 0.17, 0.35];
+            for (var o = 0; o < 5; o++) {
+              var ang = angles[o];
+              var vx = ARROW_VEL * Math.sin(ang);
+              var vy = ARROW_VEL * Math.cos(ang);
+              arrows.push({ x: cx - 2, y: cy - 10, w: 4, h: 16, weaponType: 'shotgun', vx: vx, vy: vy });
+            }
+          } else if (w === 'spread' || player.spreadShot) {
+            arrows.push({ x: cx - 22 - 2, y: cy - ARROW_HEIGHT, w: ARROW_WIDTH, h: ARROW_HEIGHT });
+            arrows.push({ x: cx - 2, y: cy - ARROW_HEIGHT, w: ARROW_WIDTH, h: ARROW_HEIGHT });
+            arrows.push({ x: cx + 22 - 2, y: cy - ARROW_HEIGHT, w: ARROW_WIDTH, h: ARROW_HEIGHT });
+          } else {
+            arrows.push({ x: cx - ARROW_WIDTH/2, y: cy - ARROW_HEIGHT, w: ARROW_WIDTH, h: ARROW_HEIGHT });
+          }
+          keysState.space = false;
         }
 
+        function nearestTarget(ax, ay) {
+          var best = null, bestD = 1e9;
+          if (ufo) { var tx = ufo.x + ufo.w/2, ty = ufo.y + ufo.h/2; var d = (tx-ax)*(tx-ax) + (ty-ay)*(ty-ay); if (d < bestD) { bestD = d; best = { x: tx, y: ty }; } }
+          if (shark) { var tx = shark.x + shark.w/2, ty = shark.y + shark.h/2; var d = (tx-ax)*(tx-ax) + (ty-ay)*(ty-ay); if (d < bestD) { bestD = d; best = { x: tx, y: ty }; } }
+          if (pufferfish) { var tx = pufferfish.x + pufferfish.w/2, ty = pufferfish.y + pufferfish.h/2; var d = (tx-ax)*(tx-ax) + (ty-ay)*(ty-ay); if (d < bestD) { bestD = d; best = { x: tx, y: ty }; } }
+          if (robot) { var tx = robot.x + robot.w/2, ty = robot.y + robot.h/2; var d = (tx-ax)*(tx-ax) + (ty-ay)*(ty-ay); if (d < bestD) { bestD = d; best = { x: tx, y: ty }; } }
+          if (gorilla) { var tx = gorilla.x + gorilla.w/2, ty = gorilla.y + gorilla.h/2; var d = (tx-ax)*(tx-ax) + (ty-ay)*(ty-ay); if (d < bestD) { bestD = d; best = { x: tx, y: ty }; } }
+          for (var bi = 0; bi < smallBees.length; bi++) {
+            var b = smallBees[bi];
+            var tx = b.x + b.w/2, ty = b.y + b.h/2;
+            var d = (tx-ax)*(tx-ax) + (ty-ay)*(ty-ay);
+            if (d < bestD) { bestD = d; best = { x: tx, y: ty }; }
+          }
+          return best;
+        }
         for (let i = arrows.length - 1; i >= 0; i--) {
           const a = arrows[i];
-          a.y += ARROW_VEL;
-          if (a.y + a.h < 0) arrows.splice(i, 1);
-          else if (ufo && collides(a, ufo)) {
+          if (a.weaponType === 'missile' && (a.vx !== undefined)) {
+            var t = nearestTarget(a.x + a.w/2, a.y + a.h/2);
+            if (t) {
+              var dx = t.x - (a.x + a.w/2), dy = t.y - (a.y + a.h/2);
+              var len = Math.sqrt(dx*dx + dy*dy) || 1;
+              a.vx = (dx/len) * MISSILE_HOMING_SPEED;
+              a.vy = (dy/len) * MISSILE_HOMING_SPEED;
+            }
+            a.x += a.vx;
+            a.y += a.vy;
+          } else if (a.weaponType === 'shotgun' && a.vx != null) {
+            a.x += a.vx;
+            a.y += a.vy;
+          } else {
+            a.y += ARROW_VEL;
+          }
+          if (a.y + a.h < 0 || a.y > HEIGHT || a.x + a.w < 0 || a.x > WIDTH) { arrows.splice(i, 1); continue; }
+          var hitBee = false;
+          for (var bi = smallBees.length - 1; bi >= 0; bi--) {
+            if (collides(a, smallBees[bi])) {
+              var dmg = (a.weaponType === 'missile') ? 1/3 : 1;
+              smallBees[bi].hp = (smallBees[bi].hp || 1) - dmg;
+              if (smallBees[bi].hp <= 0) smallBees.splice(bi, 1);
+              arrows.splice(i, 1);
+              hitBee = true;
+              break;
+            }
+          }
+          if (hitBee) continue;
+          if (ufo && collides(a, ufo)) {
             arrows.splice(i, 1);
-            ufo.hp--;
-            if (ufo.hp <= 0) {
-              ufo = null;
-              ufoDefeated = true;
+            ufo.hp -= (a.weaponType === 'missile') ? 1/3 : 1;
+            if (ufo.hp <= 0) { ufo = null; ufoDefeated = true; congrats1Until = timestamp + 3000; }
+          } else if (shark && collides(a, shark)) {
+            arrows.splice(i, 1);
+            shark.hp -= (a.weaponType === 'missile') ? 1/3 : 1;
+            if (shark.hp <= 0) { shark = null; sharkDefeated = true; congrats2Until = timestamp + 3000; }
+          } else if (pufferfish && collides(a, pufferfish)) {
+            arrows.splice(i, 1);
+            pufferfish.hp -= (a.weaponType === 'missile') ? 1/3 : 1;
+            if (pufferfish.hp <= 0) { pufferfish = null; pufferfishDefeated = true; congrats3Until = timestamp + 3000; }
+          } else if (robot && collides(a, robot)) {
+            arrows.splice(i, 1);
+            robot.hp -= (a.weaponType === 'missile') ? 1/3 : 1;
+            if (robot.hp <= 0) { robot = null; robotDefeated = true; congrats4Until = timestamp + 3000; }
+          } else if (gorilla && collides(a, gorilla)) {
+            arrows.splice(i, 1);
+            gorilla.hp -= (a.weaponType === 'missile') ? 1/3 : 1;
+            if (gorilla.hp <= 0) {
+              gorilla = null;
+              gorillaDefeated = true;
               running = false;
               if (congratsOverlay) congratsOverlay.classList.remove('hidden');
               draw();
@@ -628,7 +1124,10 @@ python main.py</code></pre>
           if (s.y > HEIGHT) stars.splice(i, 1);
           else if (s.y + s.h >= player.y && collides(player, s)) {
             stars.splice(i, 1);
-            if (player.shieldUntil <= performance.now()) hit = true;
+            if (player.shieldUntil <= performance.now()) {
+              playerLives -= s.blue ? 3 : (s.purple ? 2 : 1);
+              if (playerLives <= 0) hit = true;
+            }
             break;
           }
         }
@@ -650,13 +1149,34 @@ python main.py</code></pre>
         if (overlay) overlay.classList.add('hidden');
         if (overOverlay) overOverlay.classList.add('hidden');
         if (congratsOverlay) congratsOverlay.classList.add('hidden');
-        player = { x: 200, y: HEIGHT - PLAYER_HEIGHT, w: PLAYER_WIDTH, h: PLAYER_HEIGHT, speedUp: false, spreadShot: false, shieldUntil: 0 };
+        player = { x: 200, y: HEIGHT - PLAYER_HEIGHT, w: PLAYER_WIDTH, h: PLAYER_HEIGHT, speedUp: false, spreadShot: false, weapon: 'normal', shieldUntil: 0 };
         stars = [];
         arrows = [];
+        smallBees = [];
+        lastBeeSpawn = 0;
+        lastLaserTime = 0;
         powerUps = [];
+        heartBubbles = [];
         lastPowerUpSpawn = 0;
+        lastWeaponCapsuleSpawn = 0;
+        lastHeartBubbleTime = 0;
+        playerLives = PLAYER_LIVES_MAX;
         ufo = null;
         ufoDefeated = false;
+        shark = null;
+        sharkDefeated = false;
+        pufferfish = null;
+        pufferfishDefeated = false;
+        robot = null;
+        robotDefeated = false;
+        gorilla = null;
+        gorillaDefeated = false;
+        enemyBullets = [];
+        congrats1Until = 0;
+        congrats2Until = 0;
+        congrats3Until = 0;
+        congrats4Until = 0;
+        congrats5Until = 0;
         starAddIncrement = 2000;
         starCount = 0;
         bgScrollY = 0;
@@ -687,47 +1207,57 @@ python main.py</code></pre>
       var bgmGain = null;
       var bgmMuted = false;
       var bgmInterval = null;
+      var bgmLoopLen = 0;
 
       function startBGM() {
-        if (bgmAudioCtx) return;
         try {
-          bgmAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          bgmGain = bgmAudioCtx.createGain();
-          bgmGain.connect(bgmAudioCtx.destination);
-          bgmGain.gain.value = 0.25;
+          if (!bgmAudioCtx) {
+            bgmAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            bgmGain = bgmAudioCtx.createGain();
+            bgmGain.connect(bgmAudioCtx.destination);
+            bgmGain.gain.value = bgmMuted ? 0 : 0.28;
+            var notes = [523.25, 587.33, 659.25, 523.25, 698.46, 659.25, 523.25, 587.33, 659.25, 784, 0, 659.25, 587.33, 523.25, 0];
+            var durs = [0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.5, 0.5];
+            bgmLoopLen = 0;
+            for (var d = 0; d < durs.length; d++) bgmLoopLen += durs[d];
+          }
+          if (bgmAudioCtx.state === 'suspended') bgmAudioCtx.resume();
         } catch (e) { return; }
-        var notes = [523.25, 587.33, 659.25, 523.25, 698.46, 659.25, 523.25, 587.33, 659.25, 784, 0, 659.25, 587.33, 523.25, 0];
-        var durs = [0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.5, 0.5];
-        var loopLen = 0;
-        for (var d = 0; d < durs.length; d++) loopLen += durs[d];
         function playLoop() {
-          if (!bgmAudioCtx || bgmMuted) return;
+          if (!bgmAudioCtx || bgmMuted || !bgmGain) return;
+          if (bgmAudioCtx.state !== 'running') return;
+          var now = bgmAudioCtx.currentTime;
+          var notes = [523.25, 587.33, 659.25, 523.25, 698.46, 659.25, 523.25, 587.33, 659.25, 784, 0, 659.25, 587.33, 523.25, 0];
+          var durs = [0.25, 0.25, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.5, 0.25, 0.25, 0.25, 0.5, 0.5];
           var t = 0;
           for (var i = 0; i < notes.length; i++) {
             if (notes[i] > 0) {
               (function(freq, start, dur) {
-                var osc = bgmAudioCtx.createOscillator();
-                var g = bgmAudioCtx.createGain();
-                osc.type = 'square';
-                osc.frequency.value = freq;
-                osc.connect(g);
-                g.connect(bgmGain);
-                g.gain.setValueAtTime(0.12, start);
-                g.gain.exponentialRampToValueAtTime(0.001, start + dur);
-                osc.start(start);
-                osc.stop(start + dur);
-              })(notes[i], t, durs[i]);
+                try {
+                  var osc = bgmAudioCtx.createOscillator();
+                  var g = bgmAudioCtx.createGain();
+                  osc.type = 'square';
+                  osc.frequency.value = freq;
+                  osc.connect(g);
+                  g.connect(bgmGain);
+                  g.gain.setValueAtTime(0.14, start);
+                  g.gain.exponentialRampToValueAtTime(0.001, start + dur);
+                  osc.start(start);
+                  osc.stop(start + dur);
+                } catch (err) {}
+              })(notes[i], now + t, durs[i]);
             }
             t += durs[i];
           }
-          bgmInterval = setTimeout(playLoop, loopLen * 1000);
+          bgmInterval = setTimeout(playLoop, Math.max(100, Math.round(bgmLoopLen * 1000) - 50));
         }
+        if (bgmInterval) clearTimeout(bgmInterval);
         playLoop();
       }
 
       function toggleBGM() {
         bgmMuted = !bgmMuted;
-        if (bgmGain) bgmGain.gain.value = bgmMuted ? 0 : 0.25;
+        if (bgmGain) bgmGain.gain.value = bgmMuted ? 0 : 0.28;
         var btn = document.getElementById('gameMuteBtn');
         if (btn) btn.textContent = bgmMuted ? '🔇 Music Off' : '🔊 Music On';
       }
